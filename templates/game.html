@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Game
+{% endblock %}
+
+{% block main %}
+<form action="/game" method="post">
+    <div class="mb-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Title" type="text">
+    </div>
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" id="playercount" name="playercount" placeholder="Player count" type="number" min="1" step="1">
+    </div>
+    <button class="btn btn-primary" type="submit">Add game to database</button>
+</form>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="container">
+    <form action="/" name="f" method="post">
+        <div class="row gy-5 flex-nowrap mb-3">
+            <div class="col-sm-auto align-self-left">
+                <select class="form-select" id="game" name="game">
+                    {% if not selected_game %}
+                        <option value="All">All</option>
+                    {% else %}
+                        <option value="{{ selected_game }}">{{ selected_game }}</option>
+                        <option value="All">All</option>
+                    {% endif %}
+                    {% for row in games %}
+                        <option value="{{ row.game_name }}">{{ row.game_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-sm-auto align-self-left">
+                <select class="form-select" id="mselect" name="selection" multiple="multiple">
+                    {% for player in players %}
+                    <option value="{{ player.player }}">{{ player.player }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-sm-auto align-self-left">
+                <button class="btn btn-primary" type="submit">Select</button>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="mb-3">
+        <div class="mb-3">
+        <table class="table caption-top table-striped table-hover">
+            <caption>Ranking</caption>
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Rounds</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
+                <tr>
+                    <td>{{ row.player }}</td>
+                    <td>{{ row.rounds }}</td>
+                    <td>{{ row.points }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="mb-3">
+        <div class="mb-3">
+        <table class="table caption-top table-striped table-hover">
+            <caption>Game Rounds</caption>
+            <thead>
+                <tr>
+                {% for col in cols %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% for col in cols %}
+                    <td>{{ row[loop.index0] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

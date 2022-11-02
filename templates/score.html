@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add score
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <form action="/score" name="f" method="post">
+        <div class="row gy-5 flex-nowrap justify-content-sm-center mb-3">
+            <div class="col-sm-auto align-self-center">
+                <!-- <label for="game">Choose a game:</label> -->
+                <select class="form-select" id="game" name="game" onchange="document.f.submit();">
+                    {% if not selected_game %}
+                        <option value="choice">Choose a game from the list</option>
+                    {% else %}
+                        <option value="{{ selected_game }}">{{ selected_game }}</option>
+                    {% endif %}
+                    {% for row in games %}
+                        <option value="{{ row.game_name }}">{{ row.game_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {% if not selected_game %}
+            <div class="row gy-5 flex-nowrap justify-content-sm-center mb-3">
+                <div class="col-sm-auto justify-content-center">
+                    <input class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name" type="text">
+                </div>
+                <div class="col-sm-auto justify-content-center">
+                    <input class="form-control mx-auto w-auto" id="score" name="score" placeholder="Score" type="number">
+                </div>
+            </div>
+        {% else %}
+            {% for i in range(player_count) %}
+                <div class="row flex-nowrap justify-content-sm-center mb-3">
+                    <div class="col-sm-auto justify-content-center">
+                        <input class="form-control mx-auto w-auto" id="name_{{ i }}" name="name_{{ i }}" placeholder="Name" type="text">
+                    </div>
+                    <div class="col-sm-auto justify-content-center">
+                        <input class="form-control mx-auto w-auto" id="score_{{ i }}" name="score_{{ i }}" placeholder="Score" type="number">
+                    </div>
+                </div>             
+            {% endfor %}
+        {% endif %}
+            <div class="row gy-5 flex-nowrap justify-content-sm-center mb-3">
+                <div class="col-sm-auto align-self-center">
+                    <input class="form-control mx-auto w-auto" id="date" name="date" placeholder="Date (DD/MM/YYYY)" type="text" required>
+                </div>
+            </div>
+        <button class="btn btn-primary" type="submit">Add Scoring</button>
+    </form>
+</div>
+{% endblock %}
